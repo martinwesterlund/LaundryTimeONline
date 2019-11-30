@@ -1,28 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Login v-if='!user'></Login>
+    <Calendar v-if='user'></Calendar>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Calendar from "./components/Calendar.vue";
+import Login from "./components/Login.vue"
+
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    Calendar,
+    Login
+  },
+  computed: {
+    user(){
+      return this.$store.state.user
+    }
+  },
+  created() {
+    this.$store.commit("setCurrentDate");
   }
-}
+  
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  
+}
+body{
+margin: 0;
+  padding: 0;
 }
 </style>
