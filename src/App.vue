@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Login v-if='!user'></Login>
-    <Calendar v-if='user'></Calendar>
+    <Calendar id='calendar' v-if='user'></Calendar>
   </div>
 </template>
 
@@ -28,9 +28,19 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss'>
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Reem+Kufi|Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap');
+
+$button-color: #1d1515;
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  // font-family: 'Reem Kufi', sans-serif;
+  // font-family: 'Staatliches', cursive;
+  // font-family: 'Roboto', sans-serif;
+  font-family: 'Libre Franklin', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -41,4 +51,20 @@ body{
 margin: 0;
   padding: 0;
 }
+
+// #calendar {
+//   animation: fadein 2s;
+// }
+
+button, input{
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 </style>

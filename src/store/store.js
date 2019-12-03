@@ -6,12 +6,14 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-        booking: {"date" : null, "booked" : {}, "message" : ''},
+        booking: { "date": null, "booked": {}, "message": '' },
         bookings: [],
+
         current: { year: null, month: null, day: null },
         months: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
         daysInMonth: null,
         error: null,
+        fadeOut: false,
         nextDaysInMonth: null,
         password: null,
         prevDaysInMonth: null,
@@ -28,14 +30,31 @@ export const store = new Vuex.Store({
         },
 
         selectedMonthData: [],
+        showCheckmark: false,
         showModal: false,
+        showLoginForm: false,
         showSubmitForm: false,
-        user: null,
+        user: 'Martin',
         userName: null,
         weekdays: ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'],
 
     },
 
+    actions: {
+
+        makeCheckmarkDisappear(context) {
+            setTimeout(function () {
+                context.commit('makeCmDisappear')
+            }, 3000)
+        },
+        fadeOut(context) {
+            setTimeout(function () {
+                context.commit('fadeOut')
+            }, 1500)
+        },
+
+
+    },
     mutations: {
         addUserName(state, userName) {
             state.userName = userName
@@ -43,7 +62,16 @@ export const store = new Vuex.Store({
         addPassword(state, password) {
             state.password = password
         },
-        
+
+        bookTime(state) {
+            state.showModal = !state.showModal
+            state.showCheckmark = true
+            this.dispatch('makeCheckmarkDisappear')
+            this.dispatch('fadeOut')
+            
+            state.fadeOut = false
+        },
+
         calcDaysInMonth(state) {
             state.daysInMonth = moment(state.selected.year + '-' + state.selected.month, "YYYY-MM").daysInMonth()
             this.commit('calcSelectedMonthData')
@@ -80,9 +108,9 @@ export const store = new Vuex.Store({
                         "dateId": '' + state.selected.year + '-' + state.selected.month + '-' + (i + 1),
                         "date": i + 1,
                         "timePeriods": [
-                            {'label' : 'timeA', 'time' : '8-12', 'booking' : {}}, 
-                            {'label' : 'timeB', 'time' : '12-16', 'booking' : {}}, 
-                            {'label' : 'timeC', 'time' : '16-20', 'booking' : {}}
+                            { 'label': 'timeA', 'time': '8-12', 'booking': {} },
+                            { 'label': 'timeB', 'time': '12-16', 'booking': {} },
+                            { 'label': 'timeC', 'time': '16-20', 'booking': {} }
                         ]
                     }
                 )
@@ -91,11 +119,11 @@ export const store = new Vuex.Store({
                 for (let j = 0; j < state.bookings.length; j++) {
                     if (state.bookings[j].date === state.selectedMonthData[i].dateId) {
                         switch (state.bookings[j].booked) {
-                            case 'timeA': state.selectedMonthData[i].timePeriods[0].booking = state.bookings[j]                        
+                            case 'timeA': state.selectedMonthData[i].timePeriods[0].booking = state.bookings[j]
                                 break;
-                            case 'timeB': state.selectedMonthData[i].timePeriods[1].booking = state.bookings[j]                    
+                            case 'timeB': state.selectedMonthData[i].timePeriods[1].booking = state.bookings[j]
                                 break;
-                            case 'timeC': state.selectedMonthData[i].timePeriods[2].booking = state.bookings[j]                            
+                            case 'timeC': state.selectedMonthData[i].timePeriods[2].booking = state.bookings[j]
                                 break;
                         }
                     }
@@ -104,19 +132,16 @@ export const store = new Vuex.Store({
         },
 
         clearSelectedDate(state) {
-            // switch (timePeriod) {
-            //     case 'a': state.selected.day.a = ''
-            //         break
-            //     case 'b': state.selected.day.b = ''
-            //         break
-            //     case 'c': state.selected.day.c = ''
-            // }
-            state.booking = {"date" : null, "booked" : {}, "message" : ''}
+            state.booking = { "date": null, "booked": {}, "message": '' }
         },
 
-        closeModal(state){
+        closeModal(state) {
             state.showSubmitForm = false
             state.showModal = !state.showModal
+        },
+
+        fadeOut(state){
+            state.fadeOut = true
         },
 
         loadFromDb(state, result) {
@@ -166,9 +191,7 @@ export const store = new Vuex.Store({
             this.commit('calcDaysInNextMonth')
             this.commit('calcSelectedMonthData')
         },
-        bookTime(state) {
-            state.showModal = !state.showModal
-        },
+
         setCurrentDate(state) {
             state.current.year = moment().year()
             state.current.month = moment().month() + 1
@@ -177,15 +200,23 @@ export const store = new Vuex.Store({
             state.selected.month = moment().month() + 1
             state.selected.day = moment().date()
             this.commit('calcDaysInMonth')
-            
+
         },
-      
+
+        toggleLoginForm(state){
+            state.showLoginForm = !state.showLoginForm
+        },
+
+        makeCmDisappear(state) {
+            state.showCheckmark = false
+        },
+
         toggleModal(state, date) {
             state.showSubmitForm = false
             state.showModal = !state.showModal
             state.selected.day = date.date
         },
-        toggleSubmitForm(state, label){
+        toggleSubmitForm(state, label) {
             state.showSubmitForm = !state.showSubmitForm
             state.booking.message = ''
             state.booking.booked.label = label

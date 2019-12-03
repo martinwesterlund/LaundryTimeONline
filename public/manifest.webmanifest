@@ -1,0 +1,26 @@
+{
+    "name" : "Tvättid Online",
+    "short_name" : "Tvättid Online",
+    "start_url" : "/index.html",
+    "display" : "standalone",
+    "background_color" : "#000",
+    "theme_color" : "#222",
+    "orientation" : "portrait-primary",
+    "icons" : [
+        {
+            "src" : "icon@48px.png",
+            "type" : "image/png",
+            "sizes" : "48x48"
+        },
+        {
+            "src" : "icon@96px.png",
+            "type" : "image/png",
+            "sizes" : "96x96"
+        },
+        {
+            "src" : "icon@192px.png",
+            "type" : "image/png",
+            "sizes" : "192x192"
+        }
+    ]
+}
