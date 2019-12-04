@@ -3,31 +3,40 @@
     <div>
       <div id="close" @click="closeModal">X</div>
       <h2>{{selected.day}} {{ months[selected.month -1] }} {{ selected.year }}</h2>
-
-      <!-- <div>{{selected.timePeriods}}</div> -->
       <div
         class="time-in-modal"
         v-for="(timePeriod, index) in selectedMonthData[selected.day -1].timePeriods"
         v-bind:key="'timePeriod'+ index"
       >
-        <div>{{ timePeriod.time }}</div>
+        <div id="time-period">{{ timePeriod.time }}</div>
         <div v-if="timePeriod.booking.name">Bokad av: {{ timePeriod.booking.name }}</div>
         <p v-if="timePeriod.booking.message">Meddelande: {{timePeriod.booking.message }}</p>
-        <button class='warning-btn'
+        <button
+          class="warning-btn"
           v-if="timePeriod.booking.name === user && !showSubmitForm"
           @click="deleteBooking(timePeriod.booking)"
         >Avboka tid</button>
         <div v-if="Object.entries(timePeriod.booking).length === 0">
-          <button class='ok-btn' v-if="!showSubmitForm" @click="toggleSubmitForm(timePeriod.label)">Boka tid</button>
+          <button
+            class="ok-btn"
+            v-if="!showSubmitForm"
+            @click="toggleSubmitForm(timePeriod.label)"
+          >Boka tid</button>
           <div v-if="showSubmitForm && booking.booked.label === timePeriod.label">
-            <textarea class='text-area'
+            <textarea
+              class="text-area"
               cols="30"
               rows="3"
               placeholder="Eventuellt meddelande"
               v-model="booking.message"
             ></textarea>
-            <button class='warning-btn' @click="toggleSubmitForm(timePeriod.label)">Avbryt</button>
-            <input class='ok-btn' type="submit" @click="addBooking(booking.booked.label)" value="OK" />
+            <button class="warning-btn" @click="toggleSubmitForm(timePeriod.label)">Avbryt</button>
+            <input
+              class="ok-btn"
+              type="submit"
+              @click="addBooking(booking.booked.label)"
+              value="OK"
+            />
           </div>
         </div>
       </div>
@@ -115,10 +124,9 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
 $warning-button: #c43f3f;
 $ok-btn: #1d1515;
-$button-color-hover: #523b3b;
+$button-color-hover: #525252;
 $text-color: whitesmoke;
 
 .modalDialog {
@@ -129,20 +137,21 @@ $text-color: whitesmoke;
   left: 0;
   background-color: rgba(0, 0, 0, 0.85);
   z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modalDialog > div {
   z-index: 999999;
-  max-width: 400px;
+  width: 400px;
   position: relative;
-  margin: 5% auto;
   padding: 5px 20px 13px 20px;
   border-radius: 10px;
   background: #fff;
   pointer-events: auto;
-  animation: fadein 1s, slide-in 0.5s;
+  animation: fadein 0.3s, slide-in 0.2s cubic-bezier(1, 0, 0, 1);
 }
-
 
 #close {
   cursor: pointer;
@@ -182,7 +191,11 @@ $text-color: whitesmoke;
   font-style: italic;
 }
 
-.warning-btn{
+#time-period {
+  font-weight: bold;
+}
+
+.warning-btn {
   cursor: pointer;
   background: $warning-button;
   padding: 10px;
@@ -190,9 +203,10 @@ $text-color: whitesmoke;
   color: $text-color;
   transition: all 0.25s;
   outline: 0;
+  border: 1px solid #666;
 }
 
-.ok-btn{
+.ok-btn {
   cursor: pointer;
   background: $ok-btn;
   padding: 10px;
@@ -200,27 +214,51 @@ $text-color: whitesmoke;
   color: $text-color;
   transition: all 0.25s;
   outline: 0;
+  border: 1px solid #666;
 }
 
-.warning-btn:hover, .ok-btn:hover{
+.warning-btn:hover,
+.ok-btn:hover {
   background: $button-color-hover;
 }
 
-
-
-.text-area{
- font-family: "Avenir", Helvetica, Arial, sans-serif;
+.text-area {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-in {
-  from { margin-top: -15%;
-         transform: scale(0.5);}
-  to   { margin-top: 5%;
-         transform: scale(1);}
+  from {
+    margin-top: -40px;
+  }
+  to {
+    margin-top: 0px;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .modalDialog > div {
+    z-index: 999999;
+    width: 250px;
+    margin-right: 12px;
+    position: relative;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff;
+    pointer-events: auto;
+    animation: fadein 0.3s, slide-in 0.2s cubic-bezier(1, 0, 0, 1);
+  }
+
+  .text-area {
+    width: 150px;
+  }
 }
 </style>

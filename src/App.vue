@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Login v-if='!user'></Login>
-    <Calendar id='calendar' v-if='user'></Calendar>
+    <Calendar v-if='user'></Calendar>
   </div>
 </template>
 

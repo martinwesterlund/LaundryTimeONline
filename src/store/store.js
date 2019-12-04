@@ -8,12 +8,11 @@ export const store = new Vuex.Store({
     state: {
         booking: { "date": null, "booked": {}, "message": '' },
         bookings: [],
-
         current: { year: null, month: null, day: null },
-        months: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
         daysInMonth: null,
         error: null,
         fadeOut: false,
+        months: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
         nextDaysInMonth: null,
         password: null,
         prevDaysInMonth: null,
@@ -42,27 +41,26 @@ export const store = new Vuex.Store({
 
     actions: {
 
-        makeCheckmarkDisappear(context) {
-            setTimeout(function () {
-                context.commit('makeCmDisappear')
-            }, 3000)
-        },
         fadeOut(context) {
             setTimeout(function () {
                 context.commit('fadeOut')
             }, 1500)
         },
-
-
+        makeCheckmarkDisappear(context) {
+            setTimeout(function () {
+                context.commit('makeCmDisappear')
+            }, 3000)
+        }
     },
+
     mutations: {
-        addUserName(state, userName) {
-            state.userName = userName
-        },
+
         addPassword(state, password) {
             state.password = password
         },
-
+        addUserName(state, userName) {
+            state.userName = userName
+        },
         bookTime(state) {
             state.showModal = !state.showModal
             state.showCheckmark = true
@@ -71,7 +69,6 @@ export const store = new Vuex.Store({
             
             state.fadeOut = false
         },
-
         calcDaysInMonth(state) {
             state.daysInMonth = moment(state.selected.year + '-' + state.selected.month, "YYYY-MM").daysInMonth()
             this.commit('calcSelectedMonthData')
@@ -154,6 +151,8 @@ export const store = new Vuex.Store({
             if (validation === 200) {
                 state.user = state.userName
                 this.commit('setCurrentDate')
+                state.userName = null
+                state.password = null
             } else if (validation === 401) {
                 state.error = 'Användarnamnet eller lösenordet är felaktigt!'
             } else {
@@ -167,6 +166,11 @@ export const store = new Vuex.Store({
             state.password = null
             state.error = null
         },
+
+        makeCmDisappear(state) {
+            state.showCheckmark = false
+        },
+
         monthDown(state) {
             if (state.selected.month === 1) {
                 state.selected.month = 12
@@ -200,15 +204,10 @@ export const store = new Vuex.Store({
             state.selected.month = moment().month() + 1
             state.selected.day = moment().date()
             this.commit('calcDaysInMonth')
-
         },
 
         toggleLoginForm(state){
             state.showLoginForm = !state.showLoginForm
-        },
-
-        makeCmDisappear(state) {
-            state.showCheckmark = false
         },
 
         toggleModal(state, date) {

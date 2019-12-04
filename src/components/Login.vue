@@ -1,11 +1,10 @@
 <template>
   <div>
     <div id="header">
-      
       <div id="login-bg"></div>
-      <img src="../assets/logo.png" alt="logo">
+      <img src="../assets/logo.png" alt="logo" />
       <div class="header-text">Tvättid online</div>
-      
+
       <div id="login-form">
         <input class="login-field" type="text" v-model="userName" placeholder="Användarnamn" />
         <input class="login-field" type="password" v-model="password" placeholder="Lösenord" />
@@ -43,6 +42,7 @@ export default {
     }
   },
   methods: {
+    //fetch('/api/login') Om jag vill ändra i webpack.config - se Modul om Webpack och scrolla ner till webpack-dev-server avsnittet
     loginUser() {
       fetch("http://localhost:3000/login", {
         method: "post",
@@ -57,8 +57,8 @@ export default {
         this.$store.commit("logIn", result.status);
       });
     },
-    toggleLoginForm(){
-        this.$store.commit('toggleLoginForm')
+    toggleLoginForm() {
+      this.$store.commit("toggleLoginForm");
     }
   }
 };
@@ -77,8 +77,7 @@ $button-color: #1d1515;
   color: #fff;
 }
 
-img{
-  
+img {
   margin: 25vh auto 0 auto;
   width: 15vh;
   animation: fadein 2s, slide-in 1s;
@@ -87,7 +86,7 @@ img{
 #login-bg {
   position: absolute;
   background-color: #e6e7e1;
-  background:url(../assets/bg.jpg);
+  background: url(../assets/bg.jpg);
   width: 100%;
   height: 100%;
   z-index: -1;
@@ -99,7 +98,7 @@ img{
 .header-text {
   color: whitesmoke;
   font-size: 54px;
-  font-family: 'Staatliches', cursive;
+  font-family: "Staatliches", cursive;
   animation: fadein 2s, text-slide-in 1s;
 }
 
@@ -110,7 +109,7 @@ img{
   color: #fff;
   text-decoration: none;
   padding: 1em 2em;
-  border: 2px solid #666;
+  border: 1px solid #666;
   transition: 0.5s;
   margin: 2px;
   outline: 0;
@@ -123,7 +122,7 @@ img{
 }
 
 #login-form {
-  display:flex;
+  display: flex;
   margin: 0 auto;
   flex-direction: column;
   width: 250px;
@@ -140,27 +139,35 @@ img{
   color: red;
 }
 
-.fade-out{
+.fade-out {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
 }
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-in {
-  from { margin-top: 20vh;
-         }
-  to   { margin-top: 25vh;
-         }
+  from {
+    margin-top: 20vh;
+  }
+  to {
+    margin-top: 25vh;
+  }
 }
 
 @keyframes text-slide-in {
-  from { margin-top: -20px;
-         }
-  to   { margin-top: 0;
-         }
+  from {
+    margin-top: -20px;
+  }
+  to {
+    margin-top: 0;
+  }
 }
 </style>
