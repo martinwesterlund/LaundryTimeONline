@@ -141,6 +141,10 @@ export const store = new Vuex.Store({
             state.fadeOut = true
         },
 
+        fakeLogin(state){
+            state.user = "Testperson"
+        },
+
         loadFromDb(state, result) {
             state.bookings = []
             state.bookings = result

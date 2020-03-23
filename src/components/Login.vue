@@ -44,18 +44,21 @@ export default {
   methods: {
     //fetch('/api/login') Om jag vill ändra i webpack.config - se Modul om Webpack och scrolla ner till webpack-dev-server avsnittet
     loginUser() {
-      fetch("http://localhost:3000/login", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userName: this.userName,
-          password: this.password
-        })
-      }).then(result => {
-        this.$store.commit("logIn", result.status);
-      });
+      // fetch("http://localhost:3000/login", {
+      //   method: "post",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     userName: this.userName,
+      //     password: this.password
+      //   })
+      // }).then(result => {
+      //   this.$store.commit("logIn", result.status);
+      // });
+
+      //Tillagt för att kunna logga in utan databas inkopplad
+      this.$store.commit('fakeLogin')
     },
     toggleLoginForm() {
       this.$store.commit("toggleLoginForm");
