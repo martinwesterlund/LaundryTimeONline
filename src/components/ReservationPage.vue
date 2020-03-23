@@ -169,7 +169,7 @@ $text-color: whitesmoke;
   box-shadow: 1px 1px 3px #000;
 }
 #close:hover {
-  background: #9596ff;
+  background: #74d8dc;
 }
 
 .time-in-modal {

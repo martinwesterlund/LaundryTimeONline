@@ -18,9 +18,9 @@
         </div>
 
         <div id="inlogged-user">
-          <font-awesome-icon icon="user" />
-          Inloggad som: {{user}}
           <button @click="logOut">Logga ut</button>
+          <i class="fas fa-user"> </i>{{ user}}
+          
         </div>
       </header>
 
@@ -74,7 +74,7 @@
     </div>
   </div>
 </template>
-
+<script src="https://kit.fontawesome.com/7fd85fb2b7.js" crossorigin="anonymous"></script>
 <script>
 import moment from "moment";
 import ReservationPage from "./ReservationPage.vue";
@@ -194,6 +194,7 @@ export default {
     }
   }
 };
+
 </script>
 
 <style lang="scss">
@@ -202,6 +203,14 @@ $button-color-hover: #525252;
 
 body {
   background-color: #ffffff;
+}
+
+i{
+  display: flex;
+  color: white;
+  font-size: 24px;
+  margin: 50% 0%;
+
 }
 
 #cal-bg {
@@ -454,6 +463,73 @@ header button:hover {
 
 //MEDIA QUERIES
 
+// TABLET
+
+@media only screen and (max-width: 768px) {
+  
+  header {
+    height: 100px;
+    font-size: 12px;
+    justify-items: space-between;
+  }
+  .calendar-wrapper {
+    max-width: 750px;
+  }
+
+  .date {
+    height: 80px;
+    max-width: 75px;
+  }
+
+  .date-number {
+    top: 25px;
+    left: -15px;
+    display: flex;
+    font-size: 18px;
+    min-width: 30px;
+    height: 30px;
+  }
+.time-areas {
+    // display: flex;
+    // margin-top: 15px;
+    // width: 100px;
+    // padding: 0;
+    font-size: 8px;
+    // color: #d4dbda;
+  }
+  .time-a {
+    width: 35px;
+    
+  }
+
+  .time-b {
+  
+    width: 32px;
+    
+  }
+
+  .time-c {
+    
+    width: 35px;
+    
+  }
+
+  .date-hidden {
+    
+    height: 80px;
+    min-width: 75px;
+   
+  }
+
+  @keyframes header-slide {
+    from {
+      height: 0px;
+    }
+    to {
+      height: 100px;
+    }
+  }
+}
 //MOBILE
 @media only screen and (max-width: 480px) {
   header {

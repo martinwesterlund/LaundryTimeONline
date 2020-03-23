@@ -33,7 +33,7 @@ export const store = new Vuex.Store({
         showModal: false,
         showLoginForm: false,
         showSubmitForm: false,
-        user: 'Martin',
+        user: null,
         userName: null,
         weekdays: ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'],
 
